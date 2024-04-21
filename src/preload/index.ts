@@ -2,13 +2,6 @@ import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 import lumi from 'lumi-control'
 
-async function getMonitors(): Promise<void> {
-  const monitors = lumi.monitors()
-  console.log(monitors)
-}
-
-getMonitors()
-
 // Custom APIs for renderer
 const api = {}
 
@@ -19,6 +12,7 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
+    contextBridge.exposeInMainWorld('lumi', lumi)
   } catch (error) {
     console.error(error)
   }
