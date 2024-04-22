@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from 'react'
+
 import BrightnessSlider from '@renderer/components/monitor/BrightnessSlider'
 import { Monitor } from '@renderer/models/Monitor'
-
-import { useEffect, useState } from 'react'
+import './Home.css'
 
 function Home(): JSX.Element {
   const [lumi] = useState<any>((window as any).lumi)
@@ -19,7 +20,6 @@ function Home(): JSX.Element {
   const initLumi = async (): Promise<void> => {
     const lumiMonitors = await lumi.monitors()
     setMonitors(lumiMonitors)
-    console.log(lumiMonitors)
   }
 
   const handleBrightnessChange = (id: string, brightness: number): void => {
@@ -31,8 +31,8 @@ function Home(): JSX.Element {
   }
 
   return (
-    <div>
-      {monitors.map((monitor) => (
+    <div className="home-container">
+      {monitors.map(monitor => (
         <BrightnessSlider
           key={monitor.id}
           monitor={monitor}

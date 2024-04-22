@@ -1293,6 +1293,13 @@ base64-js@^1.3.1, base64-js@^1.5.1:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
+bindings@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.5.0.tgz#10353c9e945334bc0511a6d90b38fbc7c9c504df"
+  integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
+  dependencies:
+    file-uri-to-path "1.0.0"
+
 bluebird-lst@^1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/bluebird-lst/-/bluebird-lst-1.0.9.tgz#a64a0e4365658b9ab5fe875eb9dfb694189bb41c"
@@ -1724,6 +1731,11 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
+dombo@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/dombo/-/dombo-3.2.0.tgz#0be18a8f16de82770769bba53dfdad33d7d0de68"
+  integrity sha512-ITdn9ASkOmSoviZ19NTBpF2HzZfm6B6eYl6a3oHreLJp0BJ9ihQ9O2WaoocI4dk9ZJG8Ulm9XTox4DnmGg3m1g==
+
 dotenv-expand@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
@@ -1762,6 +1774,17 @@ electron-builder@^24.9.1:
     read-config-file "6.3.2"
     simple-update-notifier "2.0.0"
     yargs "^17.6.2"
+
+electron-drag@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/electron-drag/-/electron-drag-2.0.0.tgz#2658bb55c8ea48f168db193fa030392c4ad58c87"
+  integrity sha512-/9AaqLoZR1JT4MJvWLGA8F4c0GPtUDbMoQ+tPFG4n55PxrvCZu3KkWKKGEjmuUQB/gvN8S+KbHRR0I2nZx7MaA==
+  dependencies:
+    dombo "^3.2.0"
+    try-require "^1.2.1"
+  optionalDependencies:
+    osx-mouse "^2.0.0"
+    win-mouse "^2.0.1"
 
 electron-publish@24.13.1:
   version "24.13.1"
@@ -2231,6 +2254,11 @@ file-entry-cache@^6.0.1:
   integrity sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==
   dependencies:
     flat-cache "^3.0.4"
+
+file-uri-to-path@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
+  integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
 
 filelist@^1.0.4:
   version "1.0.4"
@@ -3158,6 +3186,11 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
+nan@^2.14.1:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.19.0.tgz#bb58122ad55a6c5bc973303908d5b16cfdd5a8c0"
+  integrity sha512-nO1xXxfh/RWNxfd/XPfbIfFk5vgLsAxUR9y5O0cHMJu/AW9U95JLXqthYHjEp+8gQ5p96K9jUp8nbVOxCdRbtw==
+
 nanoid@^3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
@@ -3268,6 +3301,14 @@ optionator@^0.9.3:
     levn "^0.4.1"
     prelude-ls "^1.2.1"
     type-check "^0.4.0"
+
+osx-mouse@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/osx-mouse/-/osx-mouse-2.0.0.tgz#d7b07e8570118680e7c763057c5da92550be9c7e"
+  integrity sha512-7RGBcHCLbaCDGBzC3GvOYFDaw3zuiYwhsDJKULQEljhwhAgCArx5lHMZztzzb4jUyMWPRFDUeTi7RVtGi68b9A==
+  dependencies:
+    bindings "^1.5.0"
+    nan "^2.14.1"
 
 p-cancelable@^2.0.0:
   version "2.1.1"
@@ -3928,6 +3969,11 @@ truncate-utf8-bytes@^1.0.0:
   dependencies:
     utf8-byte-length "^1.0.1"
 
+try-require@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/try-require/-/try-require-1.2.1.tgz#34489a2cac0c09c1cc10ed91ba011594d4333be2"
+  integrity sha512-aMzrGUIA/R2LwUgvsOusx+GTy8ERyNjpBzbWgS1Qx4oTFlXCMxY3PyyXbPE1pvrvK/CXpO+BBREEqrTkNroC+A==
+
 ts-api-utils@^1.0.1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/ts-api-utils/-/ts-api-utils-1.3.0.tgz#4b490e27129f1e8e686b45cc4ab63714dc60eea1"
@@ -4125,6 +4171,14 @@ which@^2.0.1:
   integrity sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
   dependencies:
     isexe "^2.0.0"
+
+win-mouse@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/win-mouse/-/win-mouse-2.0.1.tgz#89894a8615078dbdd39a5dbf813523093ca7834d"
+  integrity sha512-cSDvzeMMcE8v+TdeT8NfWgz1h4v1dd4M5WgGqbjyb2SXKI/la/X/ZdkgeC9hQd1MtSVSuHbmO/JC+aeaDS75LA==
+  dependencies:
+    bindings "^1.5.0"
+    nan "^2.14.1"
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
   version "7.0.0"

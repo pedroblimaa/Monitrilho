@@ -9,7 +9,7 @@ function BrightnessSlider({
   monitor: Monitor
   onBrightnessChange: (id: string, brightness: number) => void
 }): JSX.Element {
-  const [brightness, setBrightness] = useState<number>(0)
+  const [brightness, setBrightness] = useState<number>(monitor.brightness)
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setBrightness(Number(event.target.value))
