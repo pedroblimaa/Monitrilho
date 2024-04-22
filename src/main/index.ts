@@ -1,10 +1,66 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
+import { app, shell, BrowserWindow, ipcMain, Tray, Menu } from 'electron'
+import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+let mainWindow
+const gotTheLock = app.requestSingleInstanceLock()
+
+function createTray(): void {
+  const tray = new Tray(path.join(__dirname, '../../resources/light-ico.png'))
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Open', click: handleWindowShow },
+    { type: 'separator' },
+    { label: 'Exit', role: 'quit', click: handleQuit }
+  ])
+
+  tray.on('click', handleWindowShow)
+
+  tray.setToolTip('Lumi Control')
+  tray.setContextMenu(contextMenu)
+}
+
+function handleQuit() {
+  mainWindow = null
+  app.quit()
+}
+
+function handleWindowShow(): void {
+  if (mainWindow.isVisible()) {
+    mainWindow.hide()
+    return
+  }
+
+  mainWindow.show()
+  mainWindow.focus()
+}
+
 function createWindow(): void {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow(getWindowConfiguration())
+
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show()
+  })
+
+  mainWindow.on('close', event => {
+    event.preventDefault()
+    mainWindow.hide()
+  })
+
+  mainWindow.webContents.setWindowOpenHandler(details => {
+    shell.openExternal(details.url)
+    return { action: 'deny' }
+  })
+
+  mainWindow.on('blur', () => {
+    mainWindow.hide()
+  })
+
+  loadMainWindowContent(mainWindow)
+}
+
+function getWindowConfiguration() {
+  return {
     width: 250,
     height: 160,
     show: false,
@@ -15,22 +71,27 @@ function createWindow(): void {
       sandbox: false
     },
     frame: false
-  })
-
-  mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
-  })
-
-  mainWindow.webContents.setWindowOpenHandler(details => {
-    shell.openExternal(details.url)
-    return { action: 'deny' }
-  })
-
-  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
-  } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+}
+
+function loadMainWindowContent(mainWindow: BrowserWindow): void {
+  is.dev && process.env['ELECTRON_RENDERER_URL']
+    ? mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    : mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+}
+
+function handleLock() {
+  if (!gotTheLock) {
+    app.quit()
+    return
+  }
+
+  app.on('second-instance', () => {
+    console.log('second-instance')
+    if (mainWindow) {
+      handleWindowShow()
+    }
+  })
 }
 
 app.whenReady().then(() => {
@@ -42,6 +103,7 @@ app.whenReady().then(() => {
 
   ipcMain.on('ping', () => console.log('pong'))
 
+  createTray()
   createWindow()
 
   app.on('activate', function () {
@@ -54,3 +116,5 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+handleLock()
