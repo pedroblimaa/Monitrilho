@@ -43,9 +43,8 @@ Welcome to Monitrilho, your go-to app for managing monitor brightness hassle-fre
   ```bash
   npm run dev
   ```
-  2. S
   3. And there you go, just slide the brightness bar to find your sweet spot.
-  4. 
+
 ## Contributions Welcome!
 Want to make Brightness Buddy even better? We'd love your help!
 
