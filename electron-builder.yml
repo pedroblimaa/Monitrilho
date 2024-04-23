@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: my-app
+productName: Monitrilho
 directories:
   buildResources: build
 files:
@@ -12,7 +12,8 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: my-app
+  executableName: Monitrilho
+  icon: build/icon.png
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

@@ -1,17 +1,29 @@
-import { app, shell, BrowserWindow, ipcMain, Tray, Menu } from 'electron'
+import {
+  app,
+  shell,
+  BrowserWindow,
+  ipcMain,
+  Tray,
+  Menu,
+  BrowserWindowConstructorOptions,
+  nativeTheme
+} from 'electron'
 import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+import icon from '../../resources/general-icon.png?asset'
 
-let mainWindow
+let mainWindow: BrowserWindow
 const gotTheLock = app.requestSingleInstanceLock()
 
 function createTray(): void {
-  const tray = new Tray(path.join(__dirname, '../../resources/light-ico.png'))
+  const isDarkTheme = nativeTheme.shouldUseDarkColors
+  const iconName = isDarkTheme ? 'light-icon.png' : 'dark-icon.png'
+  const tray = new Tray(path.join(__dirname, `../../resources/${iconName}`))
+
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Open', click: handleWindowShow },
     { type: 'separator' },
-    { label: 'Exit', role: 'quit', click: handleQuit }
+    { label: 'Exit', click: handleQuit }
   ])
 
   tray.on('click', handleWindowShow)
@@ -20,8 +32,8 @@ function createTray(): void {
   tray.setContextMenu(contextMenu)
 }
 
-function handleQuit() {
-  mainWindow = null
+function handleQuit(): void {
+  mainWindow.removeAllListeners()
   app.quit()
 }
 
@@ -59,13 +71,13 @@ function createWindow(): void {
   loadMainWindowContent(mainWindow)
 }
 
-function getWindowConfiguration() {
+function getWindowConfiguration(): BrowserWindowConstructorOptions {
   return {
     width: 250,
     height: 160,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -80,7 +92,7 @@ function loadMainWindowContent(mainWindow: BrowserWindow): void {
     : mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
 }
 
-function handleLock() {
+function handleLock(): void {
   if (!gotTheLock) {
     app.quit()
     return
