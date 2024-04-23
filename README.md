@@ -2,7 +2,7 @@
 
 ## Welcome!
 
-Welcome to Brightness Buddy, your go-to app for managing monitor brightness hassle-free! Built with Electron and React, this app makes adjusting brightness a walk in the park.
+Welcome to Monitrilho, your go-to app for managing monitor brightness hassle-free! Built with Electron and React, this app makes adjusting brightness a walk in the park.
 
 ## Features 
 
