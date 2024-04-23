@@ -14,14 +14,13 @@ Welcome to Monitrilho, your go-to app for managing monitor brightness hassle-fre
 
 ## Getting Started
 
-### Users
+### How to use
 
   1. Access the releases link: [Monitrilho Releases](https://github.com/pedroblimaa/Monitrilho/releases)
   2. Download the latest release clicking in the .exe file below assets
   3. Click on the installer and you're ready to go :).
 
-
-### Contributors
+### How to run (Devs)
 
   1. Clone this repo:
   ```bash
@@ -38,15 +37,14 @@ Welcome to Monitrilho, your go-to app for managing monitor brightness hassle-fre
   npm install
   ```
 
-## How to Use
-  1. Fire up the app:
+  4. Fire up the app:
   ```bash
   npm run dev
   ```
-  3. And there you go, just slide the brightness bar to find your sweet spot.
+  5. And there you go, just slide the brightness bar to find your sweet spot.
 
 ## Contributions Welcome!
-Want to make Brightness Buddy even better? We'd love your help!
+Want to make Monitrilho even better? We'd love your help!
 
 1. Fork this repo.
 2. Create a new branch for your feature or bug fix: git checkout -b feature/my-feature.
