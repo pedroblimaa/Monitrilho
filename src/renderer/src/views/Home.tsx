@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import BrightnessSlider from '@renderer/components/monitor/BrightnessSlider'
 import { Monitor } from '@renderer/models/Monitor'
 import './Home.css'
+import MonitorHelper from '@renderer/utils/monitorHelper'
 
 function Home(): JSX.Element {
-  const [lumi] = useState<any>((window as any).lumi)
+  const [monitorHelper] = useState(new MonitorHelper())
   const [monitors, setMonitors] = useState<Monitor[]>([])
 
   useEffect(() => {
@@ -18,16 +19,12 @@ function Home(): JSX.Element {
   }, [monitors])
 
   const initLumi = async (): Promise<void> => {
-    const lumiMonitors = await lumi.monitors()
-    setMonitors(lumiMonitors)
+    const monitors = await monitorHelper.getMonitors()
+    setMonitors(monitors)
   }
 
   const handleBrightnessChange = (id: string, brightness: number): void => {
-    const config = {
-      [id]: brightness
-    }
-    console.log(config)
-    lumi.set(config)
+    monitorHelper.setBrightness(id, brightness)
   }
 
   return (
