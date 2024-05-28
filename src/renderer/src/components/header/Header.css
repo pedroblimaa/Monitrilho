@@ -13,12 +13,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 8px;
+    padding: 5px 6px;
 
     img {
       height: 16px;
       width: 16px;
     }
+
+    .config-image {
+      height: 13px;
+      width: 13px;
+    }
+  }
+
+  .img-container:last-child {
+    padding-right: 10px;
   }
 
   .img-container:hover {

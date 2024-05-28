@@ -64,9 +64,11 @@ function createWindow(): void {
     return { action: 'deny' }
   })
 
-  mainWindow.on('blur', () => {
-    mainWindow.hide()
-  })
+  if (!is.dev) {
+    mainWindow.on('blur', () => {
+      mainWindow.hide()
+    })
+  }
 
   loadMainWindowContent(mainWindow)
 }
