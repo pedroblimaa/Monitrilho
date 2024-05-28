@@ -1,6 +1,6 @@
-import './BrightnessSlider.css'
-import { Monitor } from '../../models/Monitor'
 import { useState } from 'react'
+import { Monitor } from '../../models/Monitor'
+import './BrightnessSlider.css'
 
 function BrightnessSlider({
   monitor,
@@ -22,7 +22,7 @@ function BrightnessSlider({
   return (
     <div className="slider-container">
       <label htmlFor="brightness-slider" className="slider-label">
-        {monitor.name && `${monitor.name} - `} {monitor.manufacturer}
+        {monitor.displayName}
       </label>
       <input
         type="range"
