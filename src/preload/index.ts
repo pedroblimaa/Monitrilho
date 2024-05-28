@@ -1,5 +1,5 @@
-import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import { contextBridge } from 'electron'
 import lumi from 'lumi-control'
 
 // Custom APIs for renderer

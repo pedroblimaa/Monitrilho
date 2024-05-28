@@ -29,4 +29,20 @@ export default class MonitorHelper {
   setBrightness(id: string, brightness: number): void {
     this.lumi.set({ [id]: brightness })
   }
+
+  getMonitorsWithSpecificNames(monitors: Monitor[]): Monitor[] {
+    return monitors.map(monitor => {
+      const { name, manufacturer } = monitor
+      monitor.displayName = name ? `${name} - ${manufacturer}` : manufacturer
+
+      return monitor;
+    })
+  }
+
+  getMonitorsWithStandardNames(monitors: Monitor[]): Monitor[] {
+    return monitors.map((monitor, index) => {
+      monitor.displayName = `Monitor ${index + 1}`
+      return monitor;
+    })
+  }
 }
