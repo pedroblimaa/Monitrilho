@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
+import { AppContext } from '@renderer/components/context/Context'
 import BrightnessSlider from '@renderer/components/monitor/BrightnessSlider'
-import { Monitor } from '@renderer/models/Monitor'
-import './Home.css'
+import { Monitor, MonitorNameMode } from '@renderer/models/Monitor'
 import MonitorHelper from '@renderer/utils/monitorHelper'
+import './Home.css'
 
 function Home(): JSX.Element {
+  const { monitorNameStyle: monitorNameDefaultStyle } = useContext(AppContext)
   const [monitorHelper] = useState(new MonitorHelper())
   const [monitors, setMonitors] = useState<Monitor[]>([])
 
@@ -15,11 +17,12 @@ function Home(): JSX.Element {
   }, [])
 
   useEffect(() => {
-    console.log(monitors)
-  }, [monitors])
+    setMonitorNames(monitors)
+  }, [monitorNameDefaultStyle])
 
   const initLumi = async (): Promise<void> => {
     const monitors = await monitorHelper.getMonitors()
+    setMonitorNames(monitors)
     setMonitors(monitors)
   }
 
@@ -27,14 +30,18 @@ function Home(): JSX.Element {
     monitorHelper.setBrightness(id, brightness)
   }
 
+  const setMonitorNames = (monitors: Monitor[]): void => {
+    const ranemedMonitors = monitorNameDefaultStyle === MonitorNameMode.DEFAULT
+      ? monitorHelper.getMonitorsWithStandardNames(monitors)
+      : monitorHelper.getMonitorsWithSpecificNames(monitors)
+
+    setMonitors(ranemedMonitors)
+  }
+
   return (
     <div className="home-container">
       {monitors.map(monitor => (
-        <BrightnessSlider
-          key={monitor.id}
-          monitor={monitor}
-          onBrightnessChange={handleBrightnessChange}
-        />
+        <BrightnessSlider key={monitor.id} monitor={monitor} onBrightnessChange={handleBrightnessChange} />
       ))}
     </div>
   )

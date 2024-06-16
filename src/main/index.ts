@@ -1,19 +1,15 @@
-import {
-  app,
-  shell,
-  BrowserWindow,
-  ipcMain,
-  Tray,
-  Menu,
-  BrowserWindowConstructorOptions,
-  nativeTheme
-} from 'electron'
+import { electronApp, is, optimizer } from '@electron-toolkit/utils'
+import { app, BrowserWindow, ipcMain, Menu, nativeTheme, shell, Tray } from 'electron'
 import path, { join } from 'path'
-import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/general-icon.png?asset'
+import AppHelper from './utils/appHelper'
+import { autoUpdater } from 'electron-updater'
+import Store from 'electron-store'
 
 let mainWindow: BrowserWindow
 const gotTheLock = app.requestSingleInstanceLock()
+const appHelper = new AppHelper()
+
+autoUpdater.autoDownload = false
 
 function createTray(): void {
   const isDarkTheme = nativeTheme.shouldUseDarkColors
@@ -21,12 +17,12 @@ function createTray(): void {
   const tray = new Tray(path.join(__dirname, `../../resources/${iconName}`))
 
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Open', click: handleWindowShow },
+    { label: 'Open', click: () => appHelper.handleWindowShow(mainWindow) },
     { type: 'separator' },
     { label: 'Exit', click: handleQuit }
   ])
 
-  tray.on('click', handleWindowShow)
+  tray.on('click', () => appHelper.handleWindowShow(mainWindow))
 
   tray.setToolTip('Lumi Control')
   tray.setContextMenu(contextMenu)
@@ -37,18 +33,8 @@ function handleQuit(): void {
   app.quit()
 }
 
-function handleWindowShow(): void {
-  if (mainWindow.isVisible()) {
-    mainWindow.hide()
-    return
-  }
-
-  mainWindow.show()
-  mainWindow.focus()
-}
-
 function createWindow(): void {
-  mainWindow = new BrowserWindow(getWindowConfiguration())
+  mainWindow = new BrowserWindow(appHelper.getWindowConfig())
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -64,26 +50,12 @@ function createWindow(): void {
     return { action: 'deny' }
   })
 
-  mainWindow.on('blur', () => {
-    mainWindow.hide()
-  })
+  !is.dev ? appHelper.configProdEnv(mainWindow) : appHelper.configDevEnv(app, mainWindow)
 
   loadMainWindowContent(mainWindow)
-}
 
-function getWindowConfiguration(): BrowserWindowConstructorOptions {
-  return {
-    width: 250,
-    height: 160,
-    show: false,
-    autoHideMenuBar: true,
-    icon,
-    webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
-    },
-    frame: false
-  }
+  Store.initRenderer()
+  appHelper.handleAutoupdate(mainWindow)
 }
 
 function loadMainWindowContent(mainWindow: BrowserWindow): void {
@@ -101,7 +73,7 @@ function handleLock(): void {
   app.on('second-instance', () => {
     console.log('second-instance')
     if (mainWindow) {
-      handleWindowShow()
+      appHelper.handleWindowShow(mainWindow)
     }
   })
 }
