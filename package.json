@@ -1,6 +1,6 @@
 {
   "name": "monitrilho",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple application to control the brightness of monitors",
   "main": "./out/main/index.js",
   "author": "example.com",

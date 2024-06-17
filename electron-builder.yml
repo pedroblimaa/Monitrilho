@@ -1,4 +1,4 @@
-appId: com.electron.app
+appId: Monitrilho.app
 productName: Monitrilho
 directories:
   buildResources: build
@@ -40,7 +40,8 @@ appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://example.com/auto-updates
+  provider: github
+  owner: "pedroblimaa"
+  repo: "Monitrilho"
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
