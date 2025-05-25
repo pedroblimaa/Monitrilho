@@ -9,7 +9,7 @@ Welcome to Monitrilho, your go-to app for managing monitor brightness hassle-fre
 - Easily tweak your monitor's brightness with a slick slider.
 - Enjoy real-time updates as you make changes.
 - Save your favorite settings for quick access.
-- Works seamlessly on Windows, macOS, and Linux.
+- Only tested on Windows so far.
 
 
 ## Getting Started
