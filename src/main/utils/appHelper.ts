@@ -16,10 +16,12 @@ export default class AppHelper {
     mainWindow.focus()
   }
 
-  getWindowConfig(): BrowserWindowConstructorOptions {
+  getWindowConfig(monitorCount: number): BrowserWindowConstructorOptions {
+    console.log(monitorCount)
+
     return {
-      width: 250,
-      height: 160,
+      width: 320,
+      height: 55 * monitorCount + 50,
       show: false,
       autoHideMenuBar: true,
       icon,

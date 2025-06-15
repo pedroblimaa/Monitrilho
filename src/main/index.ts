@@ -1,5 +1,5 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { app, BrowserWindow, ipcMain, Menu, nativeTheme, shell, Tray } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu, nativeTheme, shell, Tray, screen } from 'electron'
 import path, { join } from 'path'
 import AppHelper from './utils/appHelper'
 import { autoUpdater } from 'electron-updater'
@@ -34,7 +34,8 @@ function handleQuit(): void {
 }
 
 function createWindow(): void {
-  mainWindow = new BrowserWindow(appHelper.getWindowConfig())
+  const monitorCount = screen.getAllDisplays().length
+  mainWindow = new BrowserWindow(appHelper.getWindowConfig(monitorCount))
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()

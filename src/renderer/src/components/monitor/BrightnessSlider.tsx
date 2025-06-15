@@ -2,13 +2,12 @@ import { useState } from 'react'
 import { Monitor } from '../../models/Monitor'
 import './BrightnessSlider.css'
 
-function BrightnessSlider({
-  monitor,
-  onBrightnessChange
-}: {
+interface SliderParams {
   monitor: Monitor
   onBrightnessChange: (id: string, brightness: number) => void
-}): JSX.Element {
+}
+
+function BrightnessSlider({ monitor, onBrightnessChange }: SliderParams): JSX.Element {
   const [brightness, setBrightness] = useState<number>(monitor.brightness)
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -24,14 +23,17 @@ function BrightnessSlider({
       <label htmlFor="brightness-slider" className="slider-label">
         {monitor.displayName}
       </label>
-      <input
-        type="range"
-        value={brightness}
-        className="slider"
-        id="brightness-slider"
-        onChange={handleSliderChange}
-        onMouseUp={emitBrightnessChange}
-      />
+      <div className="input-container">
+        <span>{brightness || 0}%</span>
+        <input
+          type="range"
+          value={brightness}
+          className="slider"
+          id="brightness-slider"
+          onChange={handleSliderChange}
+          onMouseUp={emitBrightnessChange}
+        />
+      </div>
     </div>
   )
 }

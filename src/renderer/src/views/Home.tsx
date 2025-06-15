@@ -22,8 +22,9 @@ function Home(): JSX.Element {
 
   const initLumi = async (): Promise<void> => {
     const monitors = await monitorHelper.getMonitors()
-    setMonitorNames(monitors)
-    setMonitors(monitors)
+    const filteredMonitors = monitors.filter(monitor => monitor.brightness)
+    setMonitorNames(filteredMonitors)
+    setMonitors(filteredMonitors)
   }
 
   const handleBrightnessChange = (id: string, brightness: number): void => {
@@ -31,9 +32,10 @@ function Home(): JSX.Element {
   }
 
   const setMonitorNames = (monitors: Monitor[]): void => {
-    const ranemedMonitors = monitorNameDefaultStyle === MonitorNameMode.DEFAULT
-      ? monitorHelper.getMonitorsWithStandardNames(monitors)
-      : monitorHelper.getMonitorsWithSpecificNames(monitors)
+    const ranemedMonitors =
+      monitorNameDefaultStyle === MonitorNameMode.DEFAULT
+        ? monitorHelper.getMonitorsWithStandardNames(monitors)
+        : monitorHelper.getMonitorsWithSpecificNames(monitors)
 
     setMonitors(ranemedMonitors)
   }

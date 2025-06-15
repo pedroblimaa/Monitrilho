@@ -4,16 +4,19 @@
   align-items: center;
   justify-content: center;
   margin-top: 10px;
+  font-size: 14px;
+  color: var(--ev-c-text-2);
+  font-weight: 600;
+}
 
-  label {
-    font-size: 14px;
-    color: var(--ev-c-text-2);
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
+.slider-container .slider {
+  height: 6px;
+  cursor: pointer;
+  width: 200px;
+}
 
-  .slider {
-    height: 6px;
-    cursor: pointer;
-  }
+.slider-container .input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
