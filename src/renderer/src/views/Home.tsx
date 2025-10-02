@@ -22,7 +22,9 @@ function Home(): JSX.Element {
 
   const initLumi = async (): Promise<void> => {
     const monitors = await monitorHelper.getMonitors()
-    const filteredMonitors = monitors.filter(monitor => monitor.brightness)
+    // Keep monitors that have a numeric brightness (including 0).
+    // The previous truthy check filtered out 0 which is a valid value.
+    const filteredMonitors = monitors.filter(monitor => Number.isFinite(monitor.brightness))
     setMonitorNames(filteredMonitors)
     setMonitors(filteredMonitors)
   }
